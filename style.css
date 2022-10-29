@@ -1,0 +1,95 @@
+
+html { 
+	min-height: 100%;
+	position: relative;
+}
+
+a{
+	color: inherit;
+	text-decoration: inherit;
+	
+}
+
+a:hover {
+	color: #E2A423;
+}
+
+li {
+	text-align: left;
+}
+
+.all {
+	background: #003400;
+	background-image: url("./static_line.png"), linear-gradient(to bottom, #003400, #002200);
+	background-repeat: repeat;
+	width: 100%;
+	min-height: 100%;
+	margin: auto;
+	text-align: center;
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+		
+.text {
+	font-family: "Courier New","Comic Sans MS", monospace;
+	font-weight: 200;
+	font-size: 16px;
+	line-weight: 25px;
+	color: #0AD423;
+	text-shadow: 0px 0px 3px #02B111; 0px 0px 7px #007702;
+	max-width: 50%;
+	margin-left: 25%;
+}
+		
+.title {
+	font-size: 32px;
+	margin-bottom: 40px;
+	font-weight: 600;			
+	text-shadow: 0px 0px 7px #12FC2E;
+	filter: brightness(120%);
+}
+		
+.para {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+		
+.para > .subheader {
+	font-size: 26px;
+	margin-bottom: 12px;
+	font-weight: 600;
+	filter: brightness(110%);
+	animation-name: lumanimsubtitle;
+	animation-duration: 0.04s;
+}
+		
+#lumanimbg {
+	animation-name: lumanimbg;
+	animation-duration: 0.04s;
+	animation-iteration-count: infinite;
+}
+		
+#lumanimtext {
+	animation-name: lumanimtext;
+	animation-duration: 0.04s;
+	animation-iteration-count: infinite;
+}
+		
+#please {
+	transform:  scaleX(-1);
+}
+
+table img {
+	width: 200px;
+	height: 200px;
+	filter: hue-rotate(180deg) opacity(5%) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 1px #0AD423) drop-shadow(0px 0px 1px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 1px #0AD423);
+	
+}
+
+table {
+	text-shadow: 0px 0px 1px 0AD423;
+	text-align: center;
+	font-size: 72px;
+	margin: auto;
+}
+
