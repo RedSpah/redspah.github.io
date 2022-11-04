@@ -23,15 +23,57 @@ li {
 }
 
 .all {
-	background: #000000;
+	/*background: #000000;
 	background-image: url("./static_line.png");
-	background-repeat: repeat;
+	background-repeat: repeat;*/
 	width: 100%;
 	min-height: 100%;
-	margin: auto;
+	/*margin: auto;*/
 	text-align: center;
 	margin-top: 5%;
 	margin-bottom: 5%;
+}
+
+.bgmountain {
+	background-image: url("./summit_cup/mountainbg.png");
+	opacity: 0.9;
+	background-repeat: no-repeat;
+  	background-size: 100% 600px;
+	min-height: 600px;
+	height: 100%;
+}
+
+.summitlogo {
+	text-align: center;
+	font-size: 80px;
+	font-weight: 900;
+	color: white;
+	text-shadow: 0px 0px 7px black,0px 0px 7px black,0px 0px 7px black,0px 0px 7px black; 
+	/*margin-top: 15%;*/
+}
+
+.summitsub {
+	text-align: center;
+	font-size: 50px;
+	font-weight: 900;
+	color: white;
+	text-shadow: 0px 0px 7px black,0px 0px 7px black; 
+
+	/*margin-top: 15%;*/
+}
+
+.imageclamp img {
+	max-width: 100%;
+	max-height: 100%;
+}
+/*
+.clampul ul {
+	text-align: center;
+	display: inline-block;
+}*/
+
+body {
+	margin: 0px;
 }
 
 .rot2 {
@@ -54,7 +96,6 @@ li {
 	font-family: "Courier New","Comic Sans MS", monospace;
 	font-weight: 200;
 	font-size: 16px;
-	line-weight: 25px;
 	color: #0AD423;
 	text-shadow: 0px 0px 3px #02B111; 
 	max-width: 50%;
@@ -76,7 +117,16 @@ li {
   	width: 100%;
 	vertical-align: bottom;
 }
-		
+	
+.footer2 {
+	font-size: 12px;
+  	left: 0;
+  	bottom: 0;
+  	width: 100%;
+	max-width: 100%;
+	vertical-align: bottom;
+}
+
 .para {
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -107,7 +157,7 @@ li {
 	transform:  scaleX(-1);
 }
 
-img {
+.greenify img {
 	width: 200px;
 	height: 200px;
 	filter: hue-rotate(180deg) opacity(5%) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 1px #0AD423);
