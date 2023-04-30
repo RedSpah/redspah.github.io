@@ -23,12 +23,8 @@ li {
 }
 
 .all {
-	/*background: #000000;
-	background-image: url("./static_line.png");
-	background-repeat: repeat;*/
 	width: 100%;
 	min-height: 100%;
-	/*margin: auto;*/
 	text-align: center;
 	margin-top: 5%;
 	margin-bottom: 5%;
@@ -58,19 +54,12 @@ li {
 	font-weight: 900;
 	color: white;
 	text-shadow: 0px 0px 7px black,0px 0px 7px black; 
-
-	/*margin-top: 15%;*/
 }
 
 .imageclamp img {
 	max-width: 100%;
 	max-height: 100%;
 }
-/*
-.clampul ul {
-	text-align: center;
-	display: inline-block;
-}*/
 
 body {
 	margin: 0px;
@@ -160,8 +149,8 @@ body {
 .greenify img {
 	width: 200px;
 	height: 200px;
-	filter: hue-rotate(180deg) opacity(5%) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 0px #0AD423) drop-shadow(0px 0px 1px #0AD423);
-	
+	-webkit-filter: invert(42%) sepia(48%) saturate(2377%) hue-rotate(90deg) brightness(103%) contrast(107%) drop-shadow(0px 0px 0px #0AD423);
+	filter: invert(42%) sepia(48%) saturate(2377%) hue-rotate(90deg) brightness(103%) contrast(107%) drop-shadow(0px 0px 0px #0AD423);
 }
 
 table {
@@ -170,4 +159,3 @@ table {
 	font-size: 72px;
 	margin: auto;
 }
-

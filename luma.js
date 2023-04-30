@@ -10,7 +10,6 @@
 		trend_reset_cutoff = 0.2;
 		text_extra = 25;
 
-
 		luma = 100;
 		trend = 0;
 		tick = 0;
@@ -18,23 +17,13 @@
 		Yoffset_old = 0;
 		luma_old = 100;
 		
-
 		shimmer = {deg:0, topg:75, botg:50, blorb:50, blorb_size:10, blorbg:125}
 		shimmer_old = {deg:0, topg:75, botg:50, blorb:50, blorb_size:10, blorbg:125}
 
 		shimmer_speed = 0.2;
 		shimmer_delay = 0;
 		ang_old = 0;
-/* 
-
-					
-
-				
-
-*/
-
-// 					
-// 					
+			
 		blorbs = []
 
 		lumapply = function ()
