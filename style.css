@@ -121,7 +121,7 @@ body {
 	margin-bottom: 15px;
 }
 		
-.para > .subheader {
+.subheader {
 	font-size: 26px;
 	margin-bottom: 12px;
 	font-weight: 600;
@@ -158,4 +158,42 @@ table {
 	text-align: center;
 	font-size: 72px;
 	margin: auto;
+}
+
+.rankinput input[type=number] {
+	width: 48px;
+	max-width: 48px;
+}
+
+details {
+	line-height: 150%;
+}
+
+details[open] > summary:not(.subheader) {
+	font-weight: 600;
+	filter: brightness(110%);
+	font-size: 18px;
+}
+
+details[open] > p {
+	padding: 6px 6px 6px 6px;
+	font-weight: 600;
+	filter: brightness(110%);
+	font-size: 18px;
+}
+
+details[open] > summary::before {
+	content: "[";
+}
+
+details[open] > summary::after {
+	content: "]";
+}
+
+details[open] > p::before {
+	content: ">> ";
+}
+
+details[open] > p::after {
+	content: " <<";
 }
