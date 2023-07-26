@@ -26,6 +26,8 @@
 			
 		blorbs = []
 
+		timestamp = 0, timestamp_last = 0;
+
 		lumapply = function ()
 		{
 
@@ -108,6 +110,11 @@
 			ang = ang_old + (Math.random() - 0.5) * 70;
 
 			lumapply();
+
+			timestamp = Date.now();
+			console.log("frame time " + (timestamp - timestamp_last) + "ms");
+			timestamp_last = timestamp;
+
 		}
 		
 		var intervalID = setInterval(lumfunc, 25);
