@@ -199,3 +199,13 @@ details[open] > p::before {
 details[open] > p::after {
 	content: " <<";
 }
+
+.halfmoon::after {
+	content: "████████";
+	letter-spacing: -20px;
+}
+
+.halfmoon::before {
+	content: "████████";
+	letter-spacing: -0px;
+}
