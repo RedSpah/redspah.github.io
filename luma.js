@@ -1,6 +1,6 @@
 
-		luma_min = 60;
-		luma_max = 140;
+		luma_min = 80;
+		luma_max = 160;
 		textRmul = 0.1;
 		textGmul = 2;
 		textBmul = 0.35;
@@ -10,10 +10,11 @@
 		trend_reset_cutoff = 0.2;
 		text_extra = 25;
 
-		luma = 100;
+		luma = 120;
 		trend = 0;
 		tick = 0;
 
+		Yoffset = 0;
 		Yoffset_old = 0;
 		luma_old = 100;
 		
