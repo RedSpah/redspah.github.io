@@ -27,7 +27,7 @@
 			
 		blorbs = []
 
-		timestamp = 0, timestamp_last = 0;
+		//timestamp = 0, timestamp_last = 0;
 
 		lumapply = function ()
 		{
@@ -112,9 +112,9 @@
 
 			lumapply();
 
-			timestamp = Date.now();
-			console.log("frame time " + (timestamp - timestamp_last) + "ms");
-			timestamp_last = timestamp;
+			//timestamp = Date.now();
+			//console.log("frame time " + (timestamp - timestamp_last) + "ms");
+			//timestamp_last = timestamp;
 
 		}
 		

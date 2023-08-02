@@ -66,23 +66,7 @@ li {
 body {
 	margin: 0px;
 }
-
-.rot2 {
-	transform: rotate(2deg);
-}
-
-.rot1 {
-	transform: rotate(1deg);
-}
-
-.rotm1 {
-	transform: rotate(-1deg);
-}
-
-.rotm2 {
-	transform: rotate(-2deg);
-}
-		
+	
 .text {
 	font-family: "Courier New","Comic Sans MS", monospace;
 	font-weight: 200;
@@ -99,6 +83,26 @@ body {
 	font-weight: 600;			
 	text-shadow: 0px 0px 7px #12FC2E;
 	filter: brightness(120%);
+}
+
+.tflagb {
+	color: skyblue;
+	text-shadow: 0px 0px 7px skyblue;
+}
+
+.tflagp {
+	color: pink;
+	text-shadow: 0px 0px 7px pink;
+}
+
+.tflagw {
+	color: white;
+	text-shadow: 0px 0px 7px white;
+}
+
+.red {
+	color: red;
+	text-shadow: 0px 0px 7px red;
 }
 
 .footer {
