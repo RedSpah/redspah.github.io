@@ -35,3 +35,12 @@ rot_lims.forEach((rot_node) => {
     var txt = "rotate(" + deg + "deg)";
     rot_node.style["transform"] = txt;
 })
+
+
+
+/// HIDDEN
+const whoami = document.querySelector(".whoami");
+whoami.addEventListener('copy', (event) => {
+    event.clipboardData.setData('text/plain', 'HALFMOON');
+    event.preventDefault();
+});
