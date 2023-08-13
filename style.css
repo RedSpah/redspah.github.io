@@ -15,7 +15,7 @@ a{
 
 a:hover {
 	color: #E2A423;
-	text-shadow:  0px 0px 3px #f7b935;
+	text-shadow:  0px 0px 3px #f7b935, 0px 0px 7px #f7b935;
 }
 
 li {
@@ -84,6 +84,11 @@ body {
 	filter: brightness(120%);
 }
 
+.red {
+	color: red;
+	text-shadow: 0px 0px 7px red;
+}
+
 .tflagb {
 	color: skyblue;
 	text-shadow: 0px 0px 7px skyblue;
@@ -99,9 +104,34 @@ body {
 	text-shadow: 0px 0px 7px white;
 }
 
-.red {
-	color: red;
-	text-shadow: 0px 0px 7px red;
+.red::selection {
+	background: red;
+	color: #010;
+	text-shadow: 0px 0px 7px #010;
+}
+
+.tflagb::selection {
+	background: skyblue;
+	color: #010;
+	text-shadow: 0px 0px 7px #010;
+}
+
+.tflagp::selection {
+	background: pink;
+	color: #010;
+	text-shadow: 0px 0px 7px #010;
+}
+
+.tflagw::selection {
+	background: white;
+	color: #010;
+	text-shadow: 0px 0px 7px #010;
+}
+
+.red::selection {
+	background: red;
+	color: #010;
+	text-shadow: 0px 0px 7px #010;
 }
 
 .footer {
@@ -131,21 +161,24 @@ body {
 	margin-bottom: 12px;
 	font-weight: 600;
 	filter: brightness(110%);
-	animation-name: lumanimsubtitle;
-	animation-duration: 0.04s;
 }
 		
 .lumanimbg {
 	animation-name: lumanimbg;
 	animation-duration: 0.04s;
 	animation-iteration-count: infinite;
-}
-		
+} 
+
 .lumanimtext {
 	animation-name: lumanimtext;
 	animation-duration: 0.04s;
 	animation-iteration-count: infinite;
 }
+
+/*::selection {
+	color:#000; 
+	background: #1E3;
+}*/
 		
 .please {
 	transform:  scaleX(-1);

@@ -1,121 +1,144 @@
+/// CONSTANTS
+LUMA_MIN = 40;
+LUMA_MAX = 120;
 
-		luma_min = 80;
-		luma_max = 160;
-		textRmul = 0.1;
-		textGmul = 2;
-		textBmul = 0.35;
-		bgtopmul = 0.25;
-		bgbotmul = 0.15;
-		trend_pow = 6;
-		trend_reset_cutoff = 0.2;
-		text_extra = 25;
+BLORB_SIZE_MIN = 15;
+BLORB_SIZE_MAX = 30;
 
-		luma = 120;
-		trend = 0;
-		tick = 0;
+BG_TOP_MUL = 0.375;
+BG_BOT_MUL = 0.225;
+BLORB_MUL = 1.5;
 
-		Yoffset = 0;
-		Yoffset_old = 0;
-		luma_old = 100;
-		
-		shimmer = {deg:0, topg:75, botg:50, blorb:50, blorb_size:10, blorbg:125}
-		shimmer_old = {deg:0, topg:75, botg:50, blorb:50, blorb_size:10, blorbg:125}
+TEXT_R_MUL = 0.1;
+TEXT_G_MUL = 2;
+TEXT_B_MUL = 0.35;
 
-		shimmer_speed = 0.2;
-		shimmer_delay = 0;
-		ang_old = 0;
-			
-		blorbs = []
+TEXT_EXTRA_LUMA = 35;
 
-		//timestamp = 0, timestamp_last = 0;
+LUMA_CHANGE_SPEED = 6;
 
-		lumapply = function ()
-		{
+INITIAL_STATE = {
+	luma: (LUMA_MAX + LUMA_MIN) / 2,
+	blorb_position: 0,
+	blorb_size: (BLORB_SIZE_MAX + BLORB_SIZE_MIN) / 2,
+	shimmer_angle: 0,
+	scanline_offset: 0,
+}
 
-			document.getElementById("styleinject").innerHTML = ' \
-			<style> \
-			@keyframes lumanimbg { \
-				from { \
-					background-image: url("./static_line.png"), \
-					linear-gradient(' + (ang_old) + 'deg, rgba(0,150,0,0.04), rgba(0,20,0,0.04)), \
-					linear-gradient(180deg, \
-						rgba(0,' + Math.floor(shimmer_old.topg) + ',0, 0.0), \
-						rgba(0,' + Math.floor(shimmer_old.topg) + ',0, 0.0) ' + (shimmer_old.blorb - (shimmer_old.blorb_size) - 2) + '%, \
-						rgba(0,' + Math.floor(shimmer_old.topg) + ',0, 0.3) ' + (shimmer_old.blorb - (shimmer_old.blorb_size) + 1) + '%, \
-						rgba(0,' + Math.floor(shimmer_old.blorbg) + ',0, 0.3) ' + (shimmer_old.blorb) + '%, \
-						rgba(0,' + Math.floor(shimmer_old.botg) + ',0, 0.0) ' + (shimmer_old.blorb) + '%, \
-						rgba(0,' + Math.floor(shimmer_old.botg) + ',0, 0.0)), \
-					linear-gradient(to bottom, rgb(0,' + Math.floor(luma_old * bgtopmul) + ',0), rgb(0,' + Math.floor(luma_old * bgbotmul) + ',0)); \
-					background-position: 0% ' + Yoffset_old + '%; \
-				} \
-				to { \
-					background-image: url("./static_line.png"), \
-					linear-gradient(' + (ang) + 'deg, rgba(0,150,0,0.04), rgba(0,20,0,0.04)), \
-					linear-gradient(180deg, \
-						rgba(0,' + Math.floor(shimmer.topg) + ',0, 0.0), \
-						rgba(0,' + Math.floor(shimmer.topg) + ',0, 0.0) ' + (shimmer.blorb - (shimmer.blorb_size) - 2) + '%, \
-						rgba(0,' + Math.floor(shimmer.topg) + ',0, 0.3) ' + (shimmer.blorb - (shimmer.blorb_size) + 1) + '%, \
-						rgba(0,' + Math.floor(shimmer.blorbg) + ',0, 0.3) ' + (shimmer.blorb) + '%, \
-						rgba(0,' + Math.floor(shimmer.botg) + ',0, 0.0) ' + (shimmer.blorb) + '%, \
-						rgba(0,' + Math.floor(shimmer.botg) + ',0, 0.0)), \
-					linear-gradient(to bottom, rgb(0,' + Math.floor(luma * bgtopmul) + ',0), rgb(0,' + Math.floor(luma * bgbotmul) + ',0)); \
-					background-position: 0%' + Yoffset + '%; \
-				} \
-			} \
-			\
-			@keyframes lumanimtext { \
-				from { color: rgb(' + Math.floor(Math.min(luma_old + text_extra, luma_max) * textRmul) + ',' + Math.floor(Math.min(luma_old + text_extra, luma_max) * textGmul) + ',' + Math.floor(Math.min(luma_old + text_extra, luma_max) * textBmul) + ');} \
-				to { color: rgb(' + Math.floor(Math.min(luma + text_extra, luma_max) * textRmul) + ',' + Math.floor(Math.min(luma + text_extra, luma_max) * textGmul) + ',' + Math.floor(Math.min(luma + text_extra, luma_max) * textBmul) + ');} \
-			} \
-			</style>';
-			
-			ang_old = ang;
-			Yoffset_old = Yoffset;
-			luma_old = luma
-			shimmer_old = shimmer;
+
+/// SETTINGS
+LOGGING = false;
+FORCE_BRIGHT = false;
+FORCE_DIM = false;
+
+
+/// VARIABLES
+trend = 0;
+blorb_speed = 0.2;
+blorb_delay = 0;
+
+state = Object.assign({}, INITIAL_STATE);
+state_prev = Object.assign({}, INITIAL_STATE);
+
+
+/// FUNCTIONS
+luma_generate_keyframe = function(state) {
+	var topG = Math.floor(BG_TOP_MUL * state.luma);
+	var botG = Math.floor(BG_BOT_MUL * state.luma);
+	var blbG = Math.floor(BLORB_MUL * state.luma);
+
+	return '{ \
+		background-image: url("./static_line.png"), \
+		linear-gradient(' + (state.shimmer_angle) + 'deg, rgba(0,' + topG + ',0,0.04), rgba(0,' + botG + ',0,0.04)), \
+		linear-gradient(180deg, \
+			rgba(0,' + topG + ',0, 0.0), \
+			rgba(0,' + topG + ',0, 0.0) ' + (state.blorb_position - (state.blorb_size) - 2) + '%, \
+			rgba(0,' + topG + ',0, 0.3) ' + (state.blorb_position - (state.blorb_size) + 1) + '%, \
+			rgba(0,' + blbG + ',0, 0.3) ' + (state.blorb_position) + '%, \
+			rgba(0,' + botG + ',0, 0.0) ' + (state.blorb_position) + '%, \
+			rgba(0,' + botG + ',0, 0.0)), \
+		linear-gradient(to bottom, rgb(0,' + topG + ',0), rgb(0,' + botG + ',0)); \
+		background-position: '+ state.scanline_offset +'% ' + state.scanline_offset + '%; \
+	}'
+}
+
+
+luma_generate_text_color = function(state) {
+	var capped_luma = Math.min(state.luma + TEXT_EXTRA_LUMA, LUMA_MAX);
+	var textR = Math.floor(capped_luma * TEXT_R_MUL);
+	var textG = Math.floor(capped_luma * TEXT_G_MUL);
+	var textB = Math.floor(capped_luma * TEXT_B_MUL);
+
+	return 'rgb(' + textR + ',' + textG + ',' + textB + ');';
+}
+
+
+luma_process = function () {
+	// STATE
+	state = {
+		luma: Math.min(Math.max(state_prev.luma + trend, LUMA_MIN), LUMA_MAX),
+		blorb_position: state_prev.blorb_position + blorb_speed,
+		blorb_size: Math.max(Math.min(state_prev.blorb_size + (Math.random() - 0.5), BLORB_SIZE_MAX), BLORB_SIZE_MIN),
+		shimmer_angle: state_prev.shimmer_angle + (Math.random() - 0.5) * 70,
+		scanline_offset: (Math.random() - 0.5) * 12,
+	}
+
+
+	// DEBUGGING
+	if (LOGGING) {
+		if (typeof timestamp_last === typeof undefined) {
+			timestamp_last = Date.now();
 		}
-		
-		lumfunc = function ()
-		{
-			if (Math.abs(trend) < trend_reset_cutoff) {trend = (Math.random() - 0.5) * trend_pow;}
+
+		timestamp = Date.now();
+		console.log("Luma frame time " + (timestamp - timestamp_last) + "ms");
+		timestamp_last = timestamp;
+	}
+
+	if (FORCE_BRIGHT) {
+		state.luma = LUMA_MAX;
+	}
+
+	if (FORCE_DIM) {
+		state.luma = LUMA_MIN;
+	}
+
+
+	// TREND
+	trend *= 0.75;
+	if (Math.abs(trend) < 0.2) {
+		trend = (Math.random() - 0.5) * LUMA_CHANGE_SPEED;
+	}
 			
-			luma += trend;
-			trend *= 0.66;
-			tick++;
+	if (state.luma <= LUMA_MIN) {trend = LUMA_CHANGE_SPEED * 0.5;}	
+	if (state.luma >= LUMA_MAX) {trend = LUMA_CHANGE_SPEED * -0.5;}
 
-			if (luma < luma_min) {trend = trend_pow * 0.5;}			
-			if (luma > luma_max) {trend = trend_pow * -0.5;}
-			
-			Yoffset = (Math.random() - 0.5) * 12;
 
-			shimmer.deg = shimmer_old.deg + (Math.random() - 0.5) * trend_pow * trend_pow;
-			shimmer.topg = bgtopmul * 1.5 * luma;
-			shimmer.botg = bgtopmul * 1.5 * luma;
-			shimmer.blorb = shimmer_old.blorb + shimmer_speed;
-			if (shimmer.blorb > 120 && shimmer_delay == 0) {
-				shimmer_delay = 40 + Math.floor(Math.random() * 70);
-			}
+	// BLORB LOOP
+	if (state.blorb_position > 110 && blorb_delay <= 0) {
+		blorb_delay = 40 + Math.floor(Math.random() * 70);
+	} else if (blorb_delay == 1) {
+		state.blorb_position = -10;
+		blorb_delay = 0;
+		blorb_speed = 0.1 + (Math.random() * 0.2)			
+	} else {
+		blorb_delay--;
+	}
 
-			if (shimmer_delay == 1) {
-				shimmer.blorb = -20;
-				shimmer_delay = 0;
-				shimmer_speed = 0.1 + (Math.random() * 0.2)
-			}
 
-			if (shimmer_delay > 0) {
-				shimmer_delay--;
-			}
-			shimmer.blorbg = bgtopmul * 5 * luma
-			shimmer.blorb_size = Math.max(Math.min(shimmer_old.blorb_size + (Math.random() - 0.5), 20), 10);
+	// APPLY
+	document.getElementById("styleinject").innerHTML = ' \
+	<style> \
+		@keyframes lumanimbg { from ' + luma_generate_keyframe(state_prev) + ' to ' + luma_generate_keyframe(state) + '} \
+		@keyframes lumanimtext { from { color: ' + luma_generate_text_color(state) + '} to { color: ' + luma_generate_text_color(state) + '}} \
+		::selection {color:#010; background: ' + luma_generate_text_color(state) + 'text-shadow: 0px 0px 3px #010;} \
+	</style>';
 
-			ang = ang_old + (Math.random() - 0.5) * 70;
 
-			lumapply();
+	// SWAP
+	state_prev = state;
+}
+	
 
-			//timestamp = Date.now();
-			//console.log("frame time " + (timestamp - timestamp_last) + "ms");
-			//timestamp_last = timestamp;
-
-		}
-		
-		var intervalID = setInterval(lumfunc, 25);
+/// INITIALIZE
+setTimeout(()=>{ setInterval(luma_process, 40) }, 100);
