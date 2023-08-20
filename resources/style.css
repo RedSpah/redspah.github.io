@@ -22,6 +22,13 @@ li {
 	text-align: left;
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-size: inherit;
+	margin-top: 0;
+    margin-bottom: 0;
+	display:inline;
+}
+
 .all {
 	width: 100%;
 	min-height: 100%;
@@ -194,7 +201,7 @@ body {
 table {
 	text-shadow: 0px 0px 1px 0AD423;
 	text-align: center;
-	font-size: 72px;
+	font-size: inherit;
 	margin: auto;
 }
 

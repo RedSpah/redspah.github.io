@@ -40,7 +40,9 @@ rot_lims.forEach((rot_node) => {
 
 /// HIDDEN
 const whoami = document.querySelector(".whoami");
+if (whoami !== null) {
 whoami.addEventListener('copy', (event) => {
     event.clipboardData.setData('text/plain', 'HALFMOON');
     event.preventDefault();
 });
+}

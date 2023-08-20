@@ -48,7 +48,7 @@ luma_generate_keyframe = function(state) {
 	var blbG = Math.floor(BLORB_MUL * state.luma);
 
 	return '{ \
-		background-image: url("./static_line.png"), \
+		background-image: url("./resources/static_line.png"), \
 		linear-gradient(' + (state.shimmer_angle) + 'deg, rgba(0,' + topG + ',0,0.04), rgba(0,' + botG + ',0,0.04)), \
 		linear-gradient(180deg, \
 			rgba(0,' + topG + ',0, 0.0), \
