@@ -1,6 +1,6 @@
 
 html { 
-	background-color: #020;
+	background-color: #010;
 	min-height: 100%;
 }
 
@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	padding-top: 5%;
 	padding-bottom: 5%;
 	box-sizing: border-box;
-	background-color: #020;
+	background-color: #010;
 }
 
 .bgmountain {
