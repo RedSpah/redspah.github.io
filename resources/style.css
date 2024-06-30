@@ -1,6 +1,7 @@
 
 html { 
 	background-color: #020;
+	min-height: 100%;
 }
 
 a{
@@ -30,10 +31,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .all {
 	width: 100%;
-	min-height: 100%;
+	min-height: 100vh;
 	text-align: center;
 	padding-top: 5%;
 	padding-bottom: 5%;
+	box-sizing: border-box;
 	background-color: #020;
 }
 
@@ -141,9 +143,10 @@ body {
 }
 
 .footer {
-	position: absolute;
+	display:inline;
+	position: fixed;
   	left: 0;
-  	bottom: 0;
+  	bottom: 0vh;
   	width: 100%;
 	vertical-align: bottom;
 }
