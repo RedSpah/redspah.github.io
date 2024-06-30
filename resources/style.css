@@ -173,7 +173,68 @@ body {
 .lumanimbg {
 	animation-name: lumanimbg;
 	animation-duration: 0.04s;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
 	animation-iteration-count: infinite;
+
+    /* CALCULATED VALUES */ 	
+    --prev_top_raw_values:				0%, calc(var(--BG_TOP_MUL_PERC) * var(--state_prev_luma)), 0%;
+	--prev_blorb_raw_values:			0%, calc(var(--BG_BLORB_MUL_PERC) * var(--state_prev_luma)), 0%;
+	--prev_bot_raw_values: 				0%, calc(var(--BG_BOT_MUL_PERC) * var(--state_prev_luma)), 0%;
+	--prev_top_raw_color:				rgb(var(--prev_top_raw_values));
+	--prev_blorb_raw_color:				rgb(var(--prev_blorb_raw_values));
+	--prev_bot_raw_color: 				rgb(var(--prev_bot_raw_values));
+ 
+	--prev_top_none_color: 				rgb(var(--prev_top_raw_values), 0%);
+    --prev_top_alpha_color:  			rgb(var(--prev_top_raw_values), var(--GRADIENT_BASE_OPACITY));  
+    --prev_top_blorb_color:  			rgb(var(--prev_top_raw_values), var(--BLORB_OPACITY)); 
+	--prev_blorb_blorb_color: 			rgb(var(--prev_blorb_raw_values), var(--BLORB_OPACITY)); 
+	--prev_bot_alpha_color: 			rgb(var(--prev_bot_raw_values), var(--GRADIENT_BASE_OPACITY)); 
+	--prev_bot_none_color: 				rgb(var(--prev_bot_raw_values), 0%);
+
+    --prev_text_adj_luma_percentified: 	calc(min(var(--state_prev_luma) + var(--TEXT_EXTRA_LUMA), var(--TEXT_LUMA_MAX)) * var(--RGB_TO_PERCENT_MUL)); 
+    --prev_text_color: 					rgb(calc(var(--TEXT_R_MUL) * var(--prev_text_adj_luma_percentified)), 
+	                       					calc(var(--TEXT_G_MUL) * var(--prev_text_adj_luma_percentified)),  
+	                       					calc(var(--TEXT_B_MUL) * var(--prev_text_adj_luma_percentified)));
+
+	--state_mid_shimmer_angle: 			calc((var(--state_prev_shimmer_angle) + var(--state_cur_shimmer_angle)) / 2);
+    --state_mid_scanline_offset: 		calc((var(--state_prev_scanline_offset) + var(--state_cur_scanline_offset)) / 2);
+    --state_mid_luma: 					calc((var(--state_prev_luma) + var(--state_cur_luma)) / 2);
+    --state_mid_blorb_size: 			calc((var(--state_prev_blorb_size) + var(--state_cur_blorb_size)) / 2);
+    --state_mid_blorb_position: 		calc((var(--state_prev_blorb_position) + var(--state_cur_blorb_position)) / 2);
+
+    --mid_top_raw_values:				0%, calc(var(--BG_TOP_MUL_PERC) * var(--state_mid_luma)), 0%;
+	--mid_blorb_raw_values:				0%, calc(var(--BG_BLORB_MUL_PERC) * var(--state_mid_luma)), 0%;
+	--mid_bot_raw_values: 				0%, calc(var(--BG_BOT_MUL_PERC) * var(--state_mid_luma)), 0%;
+	--mid_top_raw_color:				rgb(var(--mid_top_raw_values));
+	--mid_blorb_raw_color:				rgb(var(--mid_blorb_raw_values));
+	--mid_bot_raw_color: 				rgb(var(--mid_bot_raw_values));
+ 
+	--mid_top_none_color: 				rgb(var(--mid_top_raw_values), 0%);
+    --mid_top_alpha_color:  			rgb(var(--mid_top_raw_values), var(--GRADIENT_BASE_OPACITY));  
+    --mid_top_blorb_color:  			rgb(var(--mid_top_raw_values), var(--BLORB_OPACITY)); 
+	--mid_blorb_blorb_color: 			rgb(var(--mid_blorb_raw_values), var(--BLORB_OPACITY)); 
+	--mid_bot_alpha_color: 				rgb(var(--mid_bot_raw_values), var(--GRADIENT_BASE_OPACITY)); 
+	--mid_bot_none_color: 				rgb(var(--mid_bot_raw_values), 0%);
+
+    --cur_top_raw_values:				0%, calc(var(--BG_TOP_MUL_PERC) * var(--state_cur_luma)), 0%;
+	--cur_blorb_raw_values:				0%, calc(var(--BG_BLORB_MUL_PERC) * var(--state_cur_luma)), 0%;
+	--cur_bot_raw_values: 				0%, calc(var(--BG_BOT_MUL_PERC) * var(--state_cur_luma)), 0%;
+	--cur_top_raw_color:				rgb(var(--cur_top_raw_values));
+	--cur_blorb_raw_color:				rgb(var(--cur_blorb_raw_values));
+	--cur_bot_raw_color: 				rgb(var(--cur_bot_raw_values));
+ 
+	--cur_top_none_color: 				rgb(var(--cur_top_raw_values), 0%);
+    --cur_top_alpha_color:  			rgb(var(--cur_top_raw_values), var(--GRADIENT_BASE_OPACITY));  
+    --cur_top_blorb_color:  			rgb(var(--cur_top_raw_values), var(--BLORB_OPACITY)); 
+	--cur_blorb_blorb_color: 			rgb(var(--cur_blorb_raw_values), var(--BLORB_OPACITY)); 
+	--cur_bot_alpha_color: 				rgb(var(--cur_bot_raw_values), var(--GRADIENT_BASE_OPACITY)); 
+	--cur_bot_none_color: 				rgb(var(--cur_bot_raw_values), 0%);
+
+	--cur_text_adj_luma_percentified: 	calc(min(var(--state_cur_luma) + var(--TEXT_EXTRA_LUMA), var(--TEXT_LUMA_MAX)) * var(--RGB_TO_PERCENT_MUL)); 
+	--cur_text_color: 					rgb(calc(var(--TEXT_R_MUL) * var(--cur_text_adj_luma_percentified)), 
+						   					calc(var(--TEXT_G_MUL) * var(--cur_text_adj_luma_percentified)),  
+						   					calc(var(--TEXT_B_MUL) * var(--cur_text_adj_luma_percentified)));
 } 
 
 .lumanimtext {
@@ -182,10 +243,99 @@ body {
 	animation-iteration-count: infinite;
 }
 
-/*::selection {
-	color:#000; 
-	background: #1E3;
-}*/
+
+:root {
+	/* CONSTANTS */
+	--BG_TOP_MUL: 0.375; 	
+	--BG_BOT_MUL: 0.225;  
+	--BG_BLORB_MUL: 1.5;   
+	
+	--TEXT_R_MUL: 0.1; 	
+    --TEXT_G_MUL: 2;	
+    --TEXT_B_MUL: 0.35; 
+
+	--RGB_TO_PERCENT_MUL: 0.3921%;
+
+	--TEXT_LUMA_MAX: 120;   
+	--TEXT_EXTRA_LUMA: 35; 
+    --GRADIENT_BASE_OPACITY: 4%;
+	--BLORB_OPACITY: 30%;
+
+	--BG_TOP_MUL_PERC: calc(var(--BG_TOP_MUL) * var(--RGB_TO_PERCENT_MUL)); 	
+	--BG_BOT_MUL_PERC: calc(var(--BG_BOT_MUL) * var(--RGB_TO_PERCENT_MUL));  
+	--BG_BLORB_MUL_PERC: calc(var(--BG_BLORB_MUL) * var(--RGB_TO_PERCENT_MUL));    
+
+	/* DEFAULT VALUES */
+	--state_prev_shimmer_angle: 0;
+    --state_prev_scanline_offset: 0;
+    --state_prev_luma: 80;
+    --state_prev_blorb_size: 22.5;
+    --state_prev_blorb_position: 0;
+
+	--state_cur_shimmer_angle: 0;
+    --state_cur_scanline_offset: 0;
+    --state_cur_luma: 80;
+    --state_cur_blorb_size: 22.5;
+    --state_cur_blorb_position: 0;
+}
+
+@keyframes lumanimbg { 
+0% { 
+	background-image: url("./static_line.png"), 
+	linear-gradient(calc(var(--state_prev_shimmer_angle) * 1deg), var(--prev_top_alpha_color), var(--prev_bot_alpha_color)), 
+	linear-gradient(180deg, 
+		var(--prev_top_none_color), 
+		var(--prev_top_none_color)    calc((var(--state_prev_blorb_position) - var(--state_prev_blorb_size) - 2) * 1%), 
+		var(--prev_top_blorb_color)   calc((var(--state_prev_blorb_position) - var(--state_prev_blorb_size) + 1) * 1%), 
+		var(--prev_blorb_blorb_color) calc(var(--state_prev_blorb_position) * 1%), 
+		var(--prev_bot_none_color)    calc(var(--state_prev_blorb_position) * 1%), 
+		var(--prev_bot_none_color)), 
+	linear-gradient(to bottom, var(--prev_top_raw_color), var(--prev_bot_raw_color)); 
+	background-position: calc(var(--state_prev_scanline_offset) * 1%) calc(var(--state_prev_scanline_offset) * 1%); 
+} 
+50% {
+	background-image: url("./static_line.png"), 
+	linear-gradient(calc(var(--state_mid_shimmer_angle) * 1deg), var(--mid_top_alpha_color), var(--mid_bot_alpha_color)), 
+	linear-gradient(180deg, 
+		var(--mid_top_none_color), 
+		var(--mid_top_none_color)    calc((var(--state_mid_blorb_position) - var(--state_mid_blorb_size) - 2) * 1%), 
+		var(--mid_top_blorb_color)   calc((var(--state_mid_blorb_position) - var(--state_mid_blorb_size) + 1) * 1%), 
+		var(--mid_blorb_blorb_color) calc(var(--state_mid_blorb_position) * 1%), 
+		var(--mid_bot_none_color)    calc(var(--state_mid_blorb_position) * 1%), 
+		var(--mid_bot_none_color)), 
+	linear-gradient(to bottom, var(--mid_top_raw_color), var(--mid_bot_raw_color)); 
+	background-position: calc(var(--state_mid_scanline_offset) * 1%) calc(var(--state_mid_scanline_offset) * 1%); 
+}
+100% { 
+	background-image: url("./static_line.png"), 
+	linear-gradient(calc(var(--state_cur_shimmer_angle) * 1deg), var(--cur_top_alpha_color), var(--cur_bot_alpha_color)), 
+	linear-gradient(180deg, 
+		var(--cur_top_none_color), 
+		var(--cur_top_none_color)    calc((var(--state_cur_blorb_position) - var(--state_cur_blorb_size) - 2) * 1%), 
+		var(--cur_top_blorb_color)   calc((var(--state_cur_blorb_position) - var(--state_cur_blorb_size) + 1) * 1%), 
+		var(--cur_blorb_blorb_color) calc(var(--state_cur_blorb_position) * 1%), 
+		var(--cur_bot_none_color)    calc(var(--state_cur_blorb_position) * 1%), 
+		var(--cur_bot_none_color)), 
+	linear-gradient(to bottom, var(--prev_top_raw_color), var(--prev_bot_raw_color)); 
+	background-position: calc(var(--state_cur_scanline_offset) * 1%) calc(var(--state_cur_scanline_offset) * 1%); 
+}} 
+
+
+@keyframes lumanimtext { 
+0% { 
+	color: var(--prev_text_color);
+} 
+100% { 
+	color: var(--cur_text_color);
+}} 
+
+
+::selection {
+	color:#010; 
+	background: var(--cur_text_color);
+	text-shadow: 0px 0px 3px #010;
+}
+
 		
 .please {
 	transform:  scaleX(-1);

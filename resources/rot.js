@@ -46,3 +46,14 @@ whoami.addEventListener('copy', (event) => {
     event.preventDefault();
 });
 }
+
+const girlfailure = document.querySelector(".girlfailure");
+if (girlfailure !== null) {
+girlfailure.addEventListener('click', (event) => {
+    girlfailure.innerHTML = '<img src="./resources/girlfailure.png" alt="Our beloved girlfailure, Sue"></img><p>(Gardevoir)</p>'
+    event.preventDefault();
+});
+}
+
+
+

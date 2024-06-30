@@ -5,16 +5,6 @@ LUMA_MAX = 120;
 BLORB_SIZE_MIN = 15;
 BLORB_SIZE_MAX = 30;
 
-BG_TOP_MUL = 0.375;
-BG_BOT_MUL = 0.225;
-BLORB_MUL = 1.5;
-
-TEXT_R_MUL = 0.1;
-TEXT_G_MUL = 2;
-TEXT_B_MUL = 0.35;
-
-TEXT_EXTRA_LUMA = 35;
-
 LUMA_CHANGE_SPEED = 6;
 
 INITIAL_STATE = {
@@ -25,12 +15,10 @@ INITIAL_STATE = {
 	scanline_offset: 0,
 }
 
-
 /// SETTINGS
 LOGGING = false;
 FORCE_BRIGHT = false;
 FORCE_DIM = false;
-
 
 /// VARIABLES
 trend = 0;
@@ -40,39 +28,10 @@ blorb_delay = 0;
 state = Object.assign({}, INITIAL_STATE);
 state_prev = Object.assign({}, INITIAL_STATE);
 
+/// root element
+var root = document.querySelector(':root');
 
 /// FUNCTIONS
-luma_generate_keyframe = function(state) {
-	var topG = Math.floor(BG_TOP_MUL * state.luma);
-	var botG = Math.floor(BG_BOT_MUL * state.luma);
-	var blbG = Math.floor(BLORB_MUL * state.luma);
-
-	return '{ \
-		background-image: url("./resources/static_line.png"), \
-		linear-gradient(' + (state.shimmer_angle) + 'deg, rgba(0,' + topG + ',0,0.04), rgba(0,' + botG + ',0,0.04)), \
-		linear-gradient(180deg, \
-			rgba(0,' + topG + ',0, 0.0), \
-			rgba(0,' + topG + ',0, 0.0) ' + (state.blorb_position - (state.blorb_size) - 2) + '%, \
-			rgba(0,' + topG + ',0, 0.3) ' + (state.blorb_position - (state.blorb_size) + 1) + '%, \
-			rgba(0,' + blbG + ',0, 0.3) ' + (state.blorb_position) + '%, \
-			rgba(0,' + botG + ',0, 0.0) ' + (state.blorb_position) + '%, \
-			rgba(0,' + botG + ',0, 0.0)), \
-		linear-gradient(to bottom, rgb(0,' + topG + ',0), rgb(0,' + botG + ',0)); \
-		background-position: '+ state.scanline_offset +'% ' + state.scanline_offset + '%; \
-	}'
-}
-
-
-luma_generate_text_color = function(state) {
-	var capped_luma = Math.min(state.luma + TEXT_EXTRA_LUMA, LUMA_MAX);
-	var textR = Math.floor(capped_luma * TEXT_R_MUL);
-	var textG = Math.floor(capped_luma * TEXT_G_MUL);
-	var textB = Math.floor(capped_luma * TEXT_B_MUL);
-
-	return 'rgb(' + textR + ',' + textG + ',' + textB + ');';
-}
-
-
 luma_process = function () {
 	// STATE
 	state = {
@@ -82,7 +41,6 @@ luma_process = function () {
 		shimmer_angle: state_prev.shimmer_angle + (Math.random() - 0.5) * 70,
 		scanline_offset: (Math.random() - 0.5) * 12,
 	}
-
 
 	// DEBUGGING
 	if (LOGGING) {
@@ -125,20 +83,21 @@ luma_process = function () {
 		blorb_delay--;
 	}
 
+    // APPLY
+	root.style.setProperty('--state_prev_luma', state_prev.luma);
+	root.style.setProperty('--state_prev_blorb_size', state_prev.blorb_size);
+	root.style.setProperty('--state_prev_blorb_position', state_prev.blorb_position);
+	root.style.setProperty('--state_prev_scanline_offset', state_prev.scanline_offset);
+	root.style.setProperty('--state_prev_shimmer_angle', state_prev.shimmer_angle);
 
-	// APPLY
-	document.getElementById("styleinject").innerHTML = ' \
-	<style> \
-		@keyframes lumanimbg { from ' + luma_generate_keyframe(state_prev) + ' to ' + luma_generate_keyframe(state) + '} \
-		@keyframes lumanimtext { from { color: ' + luma_generate_text_color(state) + '} to { color: ' + luma_generate_text_color(state) + '}} \
-		::selection {color:#010; background: ' + luma_generate_text_color(state) + 'text-shadow: 0px 0px 3px #010;} \
-	</style>';
-
+	root.style.setProperty('--state_cur_luma', state.luma);
+	root.style.setProperty('--state_cur_blorb_size', state.blorb_size);
+	root.style.setProperty('--state_cur_blorb_position', state.blorb_position);
+	root.style.setProperty('--state_cur_scanline_offset', state.scanline_offset);
+	root.style.setProperty('--state_cur_shimmer_angle', state.shimmer_angle);
 
 	// SWAP
 	state_prev = state;
 }
 	
-
-/// INITIALIZE
-setTimeout(()=>{ setInterval(luma_process, 40) }, 100);
+setInterval(luma_process, 40);
