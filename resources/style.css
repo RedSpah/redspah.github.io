@@ -4,6 +4,12 @@ html {
 	position: relative;
 }
 
+body { 
+	min-height: 100%;
+	position: relative;
+	background-color: #020;
+}
+
 a{
 	color: inherit;
 	text-decoration: inherit;
